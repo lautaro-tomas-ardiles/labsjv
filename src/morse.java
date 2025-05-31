@@ -29,7 +29,7 @@ public class morse {
 
         switch (morse) {
             case "no":
-                for (Character i : text.toCharArray()) {
+                for (char i : text.toCharArray()) {
                     int index; //se define indice
 
                     //se recorre dictionary
