@@ -40,7 +40,6 @@ public class mru {
                 System.out.println(e.getMessage());
             }
         }
-
         // Distancia
         while (true) {
             try {
@@ -65,12 +64,10 @@ public class mru {
         //calculo velocidad
         boolean calculoDeVelocidad = valores.get(velocidadTexto) == null && valores.get(distanciaTexto) != null && valores.get(tiempoTexto) != null;
         if (calculoDeVelocidad) {
-            String velocidadResultante = velocidadMRU(
-                    valores.get(distanciaTexto),
-                    valores.get(tiempoTexto),
-                    unidades.get(distanciaTexto),
-                    unidades.get(tiempoTexto)
-            );
+            magnitud distanciaC = new magnitud(valores.get(distanciaTexto), unidades.get(distanciaTexto));
+            magnitud tiempoC = new magnitud(valores.get(tiempoTexto), unidades.get(tiempoTexto));
+
+            String velocidadResultante = velocidadMRU(distanciaC, tiempoC);
 
             System.out.println("la velocidad era : " + velocidadResultante);
         }
@@ -88,11 +85,10 @@ public class mru {
             unidades.put(tiempoTexto, (String) tiempoConvertido[0]);
             valores.put(tiempoTexto, (Double) tiempoConvertido[1]);
 
-            String distanciaResultante = distanciaMRU(
-                    valores.get(velocidadTexto),
-                    valores.get(tiempoTexto),
-                    unidades.get(velocidadTexto)
-            );
+            magnitud velocidadC = new magnitud(valores.get(velocidadTexto), unidades.get(velocidadTexto));
+            magnitud tiempoC = new magnitud(valores.get(tiempoTexto), unidades.get(tiempoTexto));
+
+            String distanciaResultante = distanciaMRU(velocidadC, tiempoC);
 
             System.out.println("la distancia era : " + distanciaResultante);
         }
@@ -109,11 +105,10 @@ public class mru {
             unidades.put(distanciaTexto, (String) distanciaConvertido[0]);
             valores.put(distanciaTexto, (Double) distanciaConvertido[1]);
 
-            String tiempoResultante = tiempoMRU(
-                    valores.get(distanciaTexto),
-                    valores.get(velocidadTexto),
-                    unidades.get(velocidadTexto)
-            );
+            magnitud distanciaC = new magnitud(valores.get(distanciaTexto), unidades.get(distanciaTexto));
+            magnitud velocidadC = new magnitud(valores.get(velocidadTexto), unidades.get(velocidadTexto));
+
+            String tiempoResultante = tiempoMRU(distanciaC, velocidadC);
 
             System.out.println("el tiempo era : " + tiempoResultante);
         }
