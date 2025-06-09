@@ -6,11 +6,6 @@ import java.util.HashMap;
 import static Fisica.operations.*;
 
 public class mru {
-
-    public static final String velocidadTexto = "velocidad";
-    public static final String distanciaTexto = "distancia";
-    public static final String tiempoTexto = "tiempo";
-
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
@@ -31,7 +26,7 @@ public class mru {
                 procesarEntrada(velocidadTexto, velocidad, valores, unidades);
                 break;
             }catch (IllegalArgumentException e) {
-                System.out.print(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
         // Tiempo
@@ -42,7 +37,7 @@ public class mru {
                 procesarEntrada(tiempoTexto, tiempo, valores, unidades);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.print(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
 
@@ -54,7 +49,7 @@ public class mru {
                 procesarEntrada(distanciaTexto, distancia, valores, unidades);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.print(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
 

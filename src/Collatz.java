@@ -7,15 +7,15 @@ public class Collatz {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
 
-    public static boolean esPar(int n) {
-        int r = n % 2;
+    public static boolean esPar(long n) {
+        long r = n % 2L;
 
         return r == 0;
     }
 
-    public static void graficaDeCollatzH(ArrayList<Integer> valores, int alturaMaxima, int anchoColumna) {
+    public static void graficaDeCollatzH(ArrayList<Long> valores, int alturaMaxima, int anchoColumna) {
 
-        int max = valores.stream().max(Integer::compareTo).get();
+        long max = valores.stream().max(Long::compareTo).get();
         int pasos = valores.size();
 
         int[] alturas = new int[pasos];
@@ -57,12 +57,12 @@ public class Collatz {
 
     }
 
-    public static void graficaDeCollatzV(ArrayList<Integer> valores, int alturaMaxima, int anchoColumna) {
+    public static void graficaDeCollatzV(ArrayList<Long> valores, int alturaMaxima, int anchoColumna) {
 
-        int max = valores.stream().max(Integer::compareTo).get(); // encontrar el valor máximo para escalar
+        long max = valores.stream().max(Long::compareTo).get(); // encontrar el valor máximo para escalar
 
         for (int i = 0; i < valores.size(); i++) {
-            int val = valores.get(i);
+            long val = valores.get(i);
 
             double logMax = Math.log(max);
             double logVal = Math.log(val);
@@ -85,14 +85,14 @@ public class Collatz {
         int step = 1;
 
         System.out.println("ingrese el numero inicial :");
-        int xn = in.nextInt();
+        long xn = in.nextLong();
 
-        ArrayList<Integer> valores = new ArrayList<>();
+        ArrayList<Long> valores = new ArrayList<>();
         valores.add(xn);
 
-        while (xn != 1) {
-            if (xn == Integer.MAX_VALUE || xn < 0) {
-                System.out.println(ANSI_RED + "ERROR :" + ANSI_RESET + " el numero supero: 2147483647");
+        while (xn != 1L) {
+            if (xn == Long.MAX_VALUE || xn < 0) {
+                System.out.println(ANSI_RED + "ERROR :" + ANSI_RESET + " el numero supero: 9223372036854775807");
                 break;
             }
             step++;

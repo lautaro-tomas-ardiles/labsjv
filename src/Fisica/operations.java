@@ -10,8 +10,19 @@ public class operations {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
 
+    public static final String velocidadTexto = "velocidad";
+    public static final String distanciaTexto = "distancia";
+    public static final String tiempoTexto = "tiempo";
+    public static final String aceleracionTexto = "aceleracion";
+
+
     // se deja las entradas en los hashMap
-    public static void procesarEntrada(String tipo, String entrada, HashMap<String, Double> valores, HashMap<String, String> unidades) throws IllegalArgumentException {
+    public static void procesarEntrada(
+            String tipo,
+            String entrada,
+            HashMap<String, Double> valores,
+            HashMap<String, String> unidades
+    ) throws IllegalArgumentException {
         entrada = entrada.trim().toLowerCase().replaceAll("\\s+", ""); // quitar espacios
 
         if (entrada.equals("null")) {
@@ -21,10 +32,11 @@ public class operations {
         }
 
         // Expresión regular: número con unidad (ej: 12.5m/s, 20km, etc.)
-        Pattern pattern = Pattern.compile("([0-9]*\\.?[0-9]+)([a-zA-Z/]+)");
+        Pattern pattern = Pattern.compile("(-?[0-9]*\\.?[0-9]+)([a-zA-Z/^0-9]+)");
         Matcher matcher = pattern.matcher(entrada);
 
         String[] unidadesValidasParaV = {"km/h", "km/min", "km/s", "m/h", "m/min", "m/s"};
+        String[] unidadesValidasParaA = {"km/h^2", "km/min^2", "km/s^2", "m/h^2", "m/min^2", "m/s^2"};
         String[] unidadesValidasParaD = {"m", "km"};
         String[] unidadesValidasParaT = {"h", "min", "s"};
 
@@ -35,7 +47,7 @@ public class operations {
             boolean unidadValida = false;
 
             switch (tipo.toLowerCase()) {
-                case "velocidad" -> {
+                case velocidadTexto -> {
                     for (String item : unidadesValidasParaV) {
                         if (unidad.equals(item)) {
                             unidadValida = true;
@@ -43,7 +55,15 @@ public class operations {
                         }
                     }
                 }
-                case "distancia" -> {
+                case aceleracionTexto -> {
+                    for (String item : unidadesValidasParaA) {
+                        if (unidad.equals(item)) {
+                            unidadValida = true;
+                            break;
+                        }
+                    }
+                }
+                case distanciaTexto -> {
                     for (String item : unidadesValidasParaD) {
                         if (unidad.equals(item)) {
                             unidadValida = true;
@@ -51,7 +71,7 @@ public class operations {
                         }
                     }
                 }
-                case "tiempo" -> {
+                case tiempoTexto -> {
                     for (String item : unidadesValidasParaT) {
                         if (unidad.equals(item)) {
                             unidadValida = true;
@@ -147,6 +167,9 @@ public class operations {
         return new Object[]{unidadDeDistancia, valorDistancia};
     }
 
+    /*
+      M.R.U.
+    */
     //se calcula la velocidad
     public static String velocidadMRU(double distancia, double tiempo, String distanciaUnidad, String tiempoUnidad) {
         double resultado = distancia / tiempo;
@@ -174,4 +197,24 @@ public class operations {
         return resultado + " " + tiempoUnidad;
     }
 
+    /*
+      M.R.U.V
+    */
+    public static String velocidadFinalMRUV(
+            double velocidadInicial,
+            String velocidadUnidades,
+            double aceleracion,
+            String aceleracionUnidades,
+            double tiempo,
+            String tiempoUnidades
+    ) {
+        double resultado = velocidadInicial + (aceleracion * tiempo);
+
+        if (aceleracionUnidades.contains(velocidadUnidades) && velocidadUnidades.contains(tiempoUnidades)) {
+            return resultado + velocidadUnidades;
+        } else {
+            throw new IllegalArgumentException(ANSI_RED + "unidades incompatibles para velocidad final" + ANSI_RESET);
+        }
+
+    }
 }
