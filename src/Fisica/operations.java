@@ -171,28 +171,28 @@ public class operations {
       M.R.U.
     */
     //se calcula la velocidad
-    public static String velocidadMRU(double distancia, double tiempo, String distanciaUnidad, String tiempoUnidad) {
-        double resultado = distancia / tiempo;
+    public static String velocidadMRU(magnitud distancia, magnitud tiempo) {
+        double resultado = distancia.valor() / tiempo.valor();
 
-        return resultado + distanciaUnidad + "/" + tiempoUnidad;
+        return resultado + distancia.unidad() + "/" + tiempo.unidad();
     }
 
     //se calcula la distancia
-    public static String distanciaMRU(double velocidad, double tiempo, String velocidadUnidad) {
-        double resultado = velocidad * tiempo;
+    public static String distanciaMRU(magnitud velocidad, magnitud tiempo) {
+        double resultado = velocidad.valor() * tiempo.valor();
 
         // Extraer unidad de distancia desde velocidad (ej. m/s * s → m)
-        String distanciaUnidad = velocidadUnidad.split("/")[0];
+        String distanciaUnidad = velocidad.unidad().split("/")[0];
 
         return resultado + " " + distanciaUnidad;
     }
 
     //se calcula el tiempo
-    public static String tiempoMRU(double distancia, double velocidad, String velocidadUnidad) {
-        double resultado = distancia / velocidad;
+    public static String tiempoMRU(magnitud velocidad, magnitud distancia) {
+        double resultado = distancia.valor() / velocidad.valor();
 
         // Extraer unidad de tiempo desde velocidad (ej. m / (m/s) → s)
-        String tiempoUnidad = velocidadUnidad.split("/")[1];
+        String tiempoUnidad = velocidad.unidad().split("/")[1];
 
         return resultado + " " + tiempoUnidad;
     }
