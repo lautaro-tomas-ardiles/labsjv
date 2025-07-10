@@ -10,11 +10,12 @@ import java.util.Scanner;
 public class mru {
     static final HashMap<tipoMagnitud, magnitud> variables = new HashMap<>();
 
-    public static void velocidad(String entrada) {
+    public static void velocidad(Scanner entrada) {
         // Velocidad
         while (true) {
             try {
-                variables.putAll(operations.procesarEntrada(tipoMagnitud.VELOCIDAD, entrada));
+                String input = entrada.nextLine();
+                variables.putAll(operations.procesarEntrada(tipoMagnitud.VELOCIDAD, input));
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -22,10 +23,11 @@ public class mru {
         }
     }
 
-    public static void distancia(String entrada) {
+    public static void distancia(Scanner entrada) {
         while (true) {
             try {
-                variables.putAll(operations.procesarEntrada(tipoMagnitud.DISTANCIA, entrada));
+                String input = entrada.nextLine();
+                variables.putAll(operations.procesarEntrada(tipoMagnitud.DISTANCIA, input));
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -33,10 +35,11 @@ public class mru {
         }
     }
 
-    public static void tiempo(String entrada) {
+    public static void tiempo(Scanner entrada) {
         while (true) {
             try {
-                variables.putAll(operations.procesarEntrada(tipoMagnitud.TIEMPO, entrada));
+                String input = entrada.nextLine();
+                variables.putAll(operations.procesarEntrada(tipoMagnitud.TIEMPO, input));
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -92,20 +95,14 @@ public class mru {
         System.out.println("ingrese los datos si no tiene alguno ingrese null");
         System.out.println("ingrese el numero con unidades :");
 
-        System.out.print("\nIngrese la velocidad con unidad: ");
-        velocidadEntrada = in.nextLine();
+        System.out.println("Ingrese la velocidad con unidad: ");
+        velocidad(in);
 
-        velocidad(velocidadEntrada);
+        System.out.println("Ingrese el tiempo con unidad: ");
+        tiempo(in);
 
-        System.out.print("\nIngrese el tiempo con unidad: ");
-        tiempoEntrada = in.nextLine();
-
-        tiempo(tiempoEntrada);
-
-        System.out.print("\nIngrese la distancia con unidad: ");
-        distanciaEntrada = in.nextLine();
-
-        distancia(distanciaEntrada);
+        System.out.println("Ingrese la distancia con unidad: ");
+        distancia(in);
 
         mostrarDatos();
     }
