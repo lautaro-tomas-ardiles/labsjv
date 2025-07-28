@@ -49,9 +49,11 @@ public class mru {
 
     public static void mostrarDatos() {
         System.out.println("\nDatos procesados:");
+
         //datos dados
         for (tipoMagnitud clave : variables.keySet()) {
             magnitud valor = variables.get(clave);
+
             if (valor.valor() != null) {
                 System.out.println(clave.toString().toLowerCase() + ": " + valor.valor() + " " + valor.unidad());
             }
@@ -61,7 +63,10 @@ public class mru {
                 && variables.get(tipoMagnitud.DISTANCIA).valor() != null
                 && variables.get(tipoMagnitud.TIEMPO).valor() != null;
         if (noVelocidad) {
-            String velocidadCalculada = operations.velocidadMRU(variables.get(tipoMagnitud.DISTANCIA), variables.get(tipoMagnitud.TIEMPO));
+            magnitud distancia = variables.get(tipoMagnitud.DISTANCIA);
+            magnitud tiempo = variables.get(tipoMagnitud.TIEMPO);
+
+            String velocidadCalculada = operations.velocidadMRU(distancia, tiempo);
             System.out.println("Velocidad : " + velocidadCalculada);
         }
 
@@ -69,9 +74,13 @@ public class mru {
                 && variables.get(tipoMagnitud.VELOCIDAD).valor() != null
                 && variables.get(tipoMagnitud.TIEMPO).valor() != null;
         if (noDistancia) {
-            magnitud distanciaConvertida = operations.convertirTiempo(variables.get(tipoMagnitud.TIEMPO), variables.get(tipoMagnitud.VELOCIDAD));
-            variables.replace(tipoMagnitud.TIEMPO, distanciaConvertida);
-            String distanciaCalculada = operations.distanciaMRU(variables.get(tipoMagnitud.VELOCIDAD), variables.get(tipoMagnitud.TIEMPO));
+            magnitud oldTiempo = variables.get(tipoMagnitud.TIEMPO);
+            magnitud velocidad = variables.get(tipoMagnitud.VELOCIDAD);
+
+            magnitud newTiempo = operations.convertirTiempo(oldTiempo, velocidad);
+            variables.replace(tipoMagnitud.TIEMPO, newTiempo);
+
+            String distanciaCalculada = operations.distanciaMRU(velocidad, newTiempo);
             System.out.println("Distancia : " + distanciaCalculada);
         }
 
@@ -79,31 +88,14 @@ public class mru {
                 && variables.get(tipoMagnitud.VELOCIDAD).valor() != null
                 && variables.get(tipoMagnitud.DISTANCIA).valor() != null;
         if (noTiempo) {
-            magnitud tiempoConvertido = operations.convertirDistancia(variables.get(tipoMagnitud.DISTANCIA), variables.get(tipoMagnitud.VELOCIDAD));
-            variables.replace(tipoMagnitud.DISTANCIA, tiempoConvertido);
-            String tiempoCalculado = operations.tiempoMRU(variables.get(tipoMagnitud.VELOCIDAD), variables.get(tipoMagnitud.DISTANCIA));
+            magnitud oldDistancia = variables.get(tipoMagnitud.DISTANCIA);
+            magnitud velocidad = variables.get(tipoMagnitud.VELOCIDAD);
+
+            magnitud newDistancia = operations.convertirDistancia(oldDistancia, velocidad);
+            variables.replace(tipoMagnitud.DISTANCIA, newDistancia);
+
+            String tiempoCalculado = operations.tiempoMRU(velocidad, newDistancia);
             System.out.println("Tiempo : " + tiempoCalculado);
         }
-    }
-
-    public static void main(String[] args) {
-
-        String velocidadEntrada, tiempoEntrada, distanciaEntrada;
-
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("ingrese los datos si no tiene alguno ingrese null");
-        System.out.println("ingrese el numero con unidades :");
-
-        System.out.println("Ingrese la velocidad con unidad: ");
-        velocidad(in);
-
-        System.out.println("Ingrese el tiempo con unidad: ");
-        tiempo(in);
-
-        System.out.println("Ingrese la distancia con unidad: ");
-        distancia(in);
-
-        mostrarDatos();
     }
 }
