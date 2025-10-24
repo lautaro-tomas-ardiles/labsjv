@@ -35,7 +35,7 @@ class Expression {
                 addNumber(number);
                 number = "";
             } else {
-                System.out.println("Caracter no reconocido: " + item);
+                System.out.println("Carácter no reconocido: " + item);
             }
             previosNumber = item;
         }

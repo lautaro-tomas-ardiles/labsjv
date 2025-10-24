@@ -18,5 +18,5 @@ fun mainKt() {
     println("Ingrese la distancia con unidad: ")
     distancia(input)
 
-    mostrarDatos();
+    mostrarDatos()
 }

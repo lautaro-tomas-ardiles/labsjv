@@ -10,6 +10,10 @@ import java.util.Scanner;
 public class mru {
     static final HashMap<tipoMagnitud, magnitud> variables = new HashMap<>();
 
+    private static boolean isPresent(tipoMagnitud tipo) {
+        return variables.containsKey(tipo) && variables.get(tipo).valor() != null;
+    }
+
     public static void velocidad(Scanner entrada) {
         // Velocidad
         while (true) {
@@ -59,9 +63,9 @@ public class mru {
             }
         }
         // datos calculados
-        boolean noVelocidad = variables.get(tipoMagnitud.VELOCIDAD).valor() == null
-                && variables.get(tipoMagnitud.DISTANCIA).valor() != null
-                && variables.get(tipoMagnitud.TIEMPO).valor() != null;
+        boolean noVelocidad = !isPresent(tipoMagnitud.VELOCIDAD)
+                && isPresent(tipoMagnitud.DISTANCIA)
+                && isPresent(tipoMagnitud.TIEMPO);
         if (noVelocidad) {
             magnitud distancia = variables.get(tipoMagnitud.DISTANCIA);
             magnitud tiempo = variables.get(tipoMagnitud.TIEMPO);
@@ -70,9 +74,10 @@ public class mru {
             System.out.println("Velocidad : " + velocidadCalculada);
         }
 
-        boolean noDistancia = variables.get(tipoMagnitud.DISTANCIA).valor() == null
-                && variables.get(tipoMagnitud.VELOCIDAD).valor() != null
-                && variables.get(tipoMagnitud.TIEMPO).valor() != null;
+        boolean noDistancia = !isPresent(tipoMagnitud.DISTANCIA)
+                && isPresent(tipoMagnitud.VELOCIDAD)
+                && isPresent(tipoMagnitud.TIEMPO);
+        // si no hay distancia, pero si hay velocidad y tiempo
         if (noDistancia) {
             magnitud oldTiempo = variables.get(tipoMagnitud.TIEMPO);
             magnitud velocidad = variables.get(tipoMagnitud.VELOCIDAD);
@@ -84,9 +89,9 @@ public class mru {
             System.out.println("Distancia : " + distanciaCalculada);
         }
 
-        boolean noTiempo = variables.get(tipoMagnitud.TIEMPO).valor() == null
-                && variables.get(tipoMagnitud.VELOCIDAD).valor() != null
-                && variables.get(tipoMagnitud.DISTANCIA).valor() != null;
+        boolean noTiempo = !isPresent(tipoMagnitud.TIEMPO)
+                && isPresent(tipoMagnitud.VELOCIDAD)
+                && isPresent(tipoMagnitud.DISTANCIA);
         if (noTiempo) {
             magnitud oldDistancia = variables.get(tipoMagnitud.DISTANCIA);
             magnitud velocidad = variables.get(tipoMagnitud.VELOCIDAD);
